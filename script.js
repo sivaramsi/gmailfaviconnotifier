@@ -14,13 +14,16 @@ var lastChatMessagesCount;
 function run() {
   var inboxCount = getInboxCount(0);
   var chatMessages = getChatMessages();
-  if(inboxCount != lastInboxCount || chatMessages != lastChatMessages) {
-    lastInboxCount = inboxCount;
-	lastChatMessages = chatMessages;
-	changeFavicon(inboxCount, chatMessages);
+  if(inboxCount != lastInboxCount || chatMessages != lastChatMessagesCount) {
     if(inboxCount != lastInboxCount && inboxCount > 0) {
-      chrome.extension.sendRequest({inboxCount: inboxCount});
+      chrome.extension.sendRequest({type: 'email', inboxCount: inboxCount});
     }
+	if(chatMessages != lastChatMessagesCount && chatMessages > 0) {
+	  chrome.extension.sendRequest({type: 'chat'});
+	}
+	changeFavicon(inboxCount, chatMessages);
+	lastInboxCount = inboxCount;
+	lastChatMessagesCount = chatMessages;
   }
 }
 

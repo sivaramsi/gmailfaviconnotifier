@@ -14,12 +14,22 @@
 			//			"from a content script:" + sender.tab.url :
 			//			"from the extension");
 		    // Create a simple text notification:
-			var notification = webkitNotifications.createNotification(
-			  'icon48.png',  // icon url - can be relative
-			  'You have new mail!',  // notification title
-			  request.inboxCount  // notification body text
-			);
-			notification.show();
+			if (request.type == 'email') {
+			  var notification = webkitNotifications.createNotification(
+			    'icon48.png',  // icon url - can be relative
+			    'You have ' + request.inboxCount + ' new mail!',  // notification title
+			    ''  // notification body text
+			  );
+			  notification.show();
+			}
+			else if (request.type == 'chat') {
+			   var notification = webkitNotifications.createNotification(
+			    'icon48.png',  // icon url - can be relative
+			    'You have a new Gtalk message!',  // notification title
+			    ''  // notification body text
+			  );
+			  notification.show();
+			}
 		  }
 		);
 	</script>
