@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<!--
+ * Copyright (c) 2010 The Chromium Authors. All rights reserved.  Use of this
+ * source code is governed by a BSD-style license that can be found in the
+ * LICENSE file.
+-->
+<html>
+  <head>
+	<script>
+	
+		chrome.extension.onRequest.addListener(
+		  function(request, sender, sendResponse) {
+		    //console.log(sender.tab ?
+			//			"from a content script:" + sender.tab.url :
+			//			"from the extension");
+		    // Create a simple text notification:
+			var notification = webkitNotifications.createNotification(
+			  'icon48.png',  // icon url - can be relative
+			  'You have new mail!',  // notification title
+			  request.inboxCount  // notification body text
+			);
+			notification.show();
+		  }
+		);
+	</script>
+  </head>
+  <body>
+  </body>
+</html>
