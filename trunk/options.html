@@ -28,7 +28,7 @@
         status.innerHTML = "Options Saved.";
         setTimeout(function() {
           status.innerHTML = "";
-        }, 750);
+        }, 1000);
       }
 
       // Restores select box state to saved value from localStorage.
@@ -61,18 +61,25 @@
   </head>
 
   <body onload="restore_options()">
-    Enable desktop notification:
-    <select id="desktopNotification">
-      <option value="true">True</option>
-      <option value="false">False</option>
-    </select>
-    <br />
-    Enable chat notification:
-    <select id="chatNotification">
-      <option value="true">True</option>
-      <option value="false">False</option>
-    </select>
-    <br />
-    <button onclick="save_options()">Save</button><span id="status"></span>
+    <div style="width: 500px; margin: 100px auto; padding: 0px 20px; border: solid 1px grey; border-radius: 20px;">
+ 	  <h2 style="border-bottom: solid 1px grey;"><img title="Gmail Favicon Notifier" alt="Gmail Favicon Notifier" src="icon48.png" style="vertical-align: -12px; margin-right: 10px;" />Gmail Favicon Notifier</h2>
+	  <p>
+        Enable desktop notification:
+        <select id="desktopNotification">
+          <option value="true">True</option>
+          <option value="false">False</option>
+        </select>
+      </p>
+	  <p>
+        Enable chat notification:
+        <select id="chatNotification">
+          <option value="true">True</option>
+          <option value="false">False</option>
+        </select>
+      </p>
+	  <p>
+        <button onclick="save_options()">Save</button><span id="status"></span>
+	  </p>
+	</div>
   </body>
 </html>
