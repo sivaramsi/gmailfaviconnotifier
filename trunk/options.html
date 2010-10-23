@@ -10,18 +10,18 @@
 		if(desktopNotification == 'true' && window.webkitNotifications.checkPermission() != 0) {
 		  window.webkitNotifications.requestPermission(function() {
 		    if(window.webkitNotifications.checkPermission() == 0) {
-		      localStorage["desktopNotification"] = desktopNotification;
+		      localStorage.desktopNotification = true;
 		    } else {
-			  localStorage["desktopNotification"] = 'false';
+			  localStorage.desktopNotification = false;
 			}
 		  });
 		} else {
-		  localStorage["desktopNotification"] = desktopNotification;
+		  localStorage.desktopNotification = desktopNotification == 'true' ? true : false;
 		}
 		
 		select = document.getElementById("chatNotification");
         var chatNotification = select.children[select.selectedIndex].value;
-        localStorage["chatNotification"] = chatNotification;
+        localStorage.chatNotification = chatNotification == 'true' ? true : false;
 
         // Update status to let user know options were saved.
         var status = document.getElementById("status");
@@ -51,10 +51,14 @@
         select = document.getElementById("chatNotification");
         for (var i = 0; i < select.children.length; i++) {
           var child = select.children[i];
-          if (child.value == chatNotification) {
+          if (child.value == "true" && chatNotification) {
             child.selected = "true";
             break;
           }
+		  if (child.value == "false" && !chatNotification) {
+		    child.selected = "true";
+			break;
+		  }
         }
       }
     </script>
