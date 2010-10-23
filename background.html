@@ -14,6 +14,12 @@
 			//			"from a content script:" + sender.tab.url :
 			//			"from the extension");
 		    // Create a simple text notification:
+			if (request.type == 'getvars') {
+			  var response = {};
+			  response.chatNotification = localStorage['chatNotification'];
+			  response.desktopNotification = localStorage.desktopNotification;
+			  sendResponse(response);
+			}
 			if (request.type == 'email') {
 			  var notification = webkitNotifications.createNotification(
 			    'icon48.png',  // icon url - can be relative
@@ -21,6 +27,9 @@
 			    ''  // notification body text
 			  );
 			  notification.show();
+			  setTimeout(function() {
+			    notification.cancel();
+			  }, 15000);
 			}
 			else if (request.type == 'chat') {
 			   var notification = webkitNotifications.createNotification(
@@ -29,6 +38,9 @@
 			    ''  // notification body text
 			  );
 			  notification.show();
+			  setTimeout(function() {
+			    notification.cancel();
+			  }, 15000);
 			}
 		  }
 		);

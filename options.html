@@ -1,0 +1,78 @@
+<html>
+  <head>
+    <title>Gmail Favicon Notifier Options</title>
+	
+	<script type="text/javascript">
+      // Saves options to localStorage.
+      function save_options() {
+        var select = document.getElementById("desktopNotification");
+        var desktopNotification = select.children[select.selectedIndex].value;
+		if(desktopNotification == 'true' && window.webkitNotifications.checkPermission() != 0) {
+		  window.webkitNotifications.requestPermission(function() {
+		    if(window.webkitNotifications.checkPermission() == 0) {
+		      localStorage["desktopNotification"] = desktopNotification;
+		    } else {
+			  localStorage["desktopNotification"] = 'false';
+			}
+		  });
+		} else {
+		  localStorage["desktopNotification"] = desktopNotification;
+		}
+		
+		select = document.getElementById("chatNotification");
+        var chatNotification = select.children[select.selectedIndex].value;
+        localStorage["chatNotification"] = chatNotification;
+
+        // Update status to let user know options were saved.
+        var status = document.getElementById("status");
+        status.innerHTML = "Options Saved.";
+        setTimeout(function() {
+          status.innerHTML = "";
+        }, 750);
+      }
+
+      // Restores select box state to saved value from localStorage.
+      function restore_options() {
+        var desktopNotification = window.webkitNotifications.checkPermission() == 0;
+        var select = document.getElementById("desktopNotification");
+        for (var i = 0; i < select.children.length; i++) {
+          var child = select.children[i];
+          if (child.value == "true" && desktopNotification) {
+            child.selected = "true";
+            break;
+          }
+		  if (child.value == "false" && !desktopNotification) {
+            child.selected = "true";
+            break;
+          }
+        }
+		
+		var chatNotification = localStorage["chatNotification"];
+        select = document.getElementById("chatNotification");
+        for (var i = 0; i < select.children.length; i++) {
+          var child = select.children[i];
+          if (child.value == chatNotification) {
+            child.selected = "true";
+            break;
+          }
+        }
+      }
+    </script>
+  </head>
+
+  <body onload="restore_options()">
+    Enable desktop notification:
+    <select id="desktopNotification">
+      <option value="true">True</option>
+      <option value="false">False</option>
+    </select>
+    <br />
+    Enable chat notification:
+    <select id="chatNotification">
+      <option value="true">True</option>
+      <option value="false">False</option>
+    </select>
+    <br />
+    <button onclick="save_options()">Save</button><span id="status"></span>
+  </body>
+</html>
