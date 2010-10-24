@@ -10,7 +10,8 @@
     "default_title" : "Gmail Favicon Notifier"
   },
   "permissions" : [
-    "tabs"
+    "tabs",
+	"notifications"
   ],
   "content_scripts": [
     {
