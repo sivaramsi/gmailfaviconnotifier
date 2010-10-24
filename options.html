@@ -22,6 +22,13 @@
 		select = document.getElementById("chatNotification");
         var chatNotification = select.children[select.selectedIndex].value;
         localStorage.chatNotification = chatNotification == 'true' ? true : false;
+		
+		// 0 -> Only Priority Inbox
+		// 1 -> Only Inbox
+		// 2 -> Priority Inbox + Inbox
+		select = document.getElementById("checkArea");
+        var checkArea = select.children[select.selectedIndex].value;
+		localStorage.checkArea = checkArea;
 
         // Update status to let user know options were saved.
         var status = document.getElementById("status");
@@ -33,32 +40,50 @@
 
       // Restores select box state to saved value from localStorage.
       function restore_options() {
-        var desktopNotification = window.webkitNotifications.checkPermission() == 0;
+        var desktopNotificationValue = window.webkitNotifications.checkPermission() == 0 && (localStorage.desktopNotification == "true" || !localStorage.desktopNotification);
         var select = document.getElementById("desktopNotification");
         for (var i = 0; i < select.children.length; i++) {
           var child = select.children[i];
-          if (child.value == "true" && desktopNotification) {
+          if (child.value == "true" && desktopNotificationValue) {
             child.selected = "true";
             break;
           }
-		  if (child.value == "false" && !desktopNotification) {
+		  if (child.value == "false" && !desktopNotificationValue) {
             child.selected = "true";
             break;
           }
         }
 		
-		var chatNotification = localStorage["chatNotification"];
+		var chatNotificationValue = localStorage.chatNotification == "true" || !localStorage.chatNotification;
         select = document.getElementById("chatNotification");
         for (var i = 0; i < select.children.length; i++) {
           var child = select.children[i];
-          if (child.value == "true" && chatNotification) {
+          if (child.value == "true" && chatNotificationValue) {
             child.selected = "true";
             break;
           }
-		  if (child.value == "false" && !chatNotification) {
+		  if (child.value == "false" && !chatNotificationValue) {
 		    child.selected = "true";
 			break;
 		  }
+        }
+		
+		var checkAreaValue = localStorage.checkArea ? localStorage.checkArea : "2";
+        select = document.getElementById("checkArea");
+        for (var i = 0; i < select.children.length; i++) {
+          var child = select.children[i];
+          if ( (child.value == "0" && checkAreaValue == "0") || !checkAreaValue) {
+            child.selected = "true";
+            break;
+          }
+		  if (child.value == "1" && checkAreaValue == "1") {
+            child.selected = "true";
+            break;
+          }
+		  if (child.value == "2" && checkAreaValue == "2") {
+            child.selected = "true";
+            break;
+          }
         }
       }
     </script>
@@ -68,19 +93,27 @@
     <div style="width: 500px; margin: 100px auto; padding: 0px 20px; border: solid 1px #AAAAAA; border-radius: 20px; -webkit-box-shadow: 2px 2px 5px #BBBBBB;">
  	  <h2 style="border-bottom: solid 1px #AAAAAA; text-shadow: 1px 1px 2px #BBBBBB;"><img title="Gmail Favicon Notifier" alt="Gmail Favicon Notifier" src="icon48.png" style="vertical-align: -12px; margin-right: 10px;" />Gmail Favicon Notifier</h2>
 	  <p>
-        Enable desktop notification:
+        Desktop notification:
         <select id="desktopNotification">
-          <option value="true">True</option>
-          <option value="false">False</option>
+          <option value="true">Enable</option>
+          <option value="false">Disable</option>
         </select>
       </p>
 	  <p>
         Enable chat notification:
         <select id="chatNotification">
-          <option value="true">True</option>
-          <option value="false">False</option>
+          <option value="true">Enable</option>
+          <option value="false">Disable</option>
         </select>
       </p>
+	  <p>
+	    Check for new mail in:
+		<select id="checkArea">
+		  <option value="0">Priority Inbox</option>
+		  <option value="1">Inbox</option>
+		  <option value="2">Priority Inbox + Inbox</option>
+		</select>
+	  </p>
 	  <p>
         <button onclick="save_options()">Save</button><span id="status"></span>
 	  </p>

@@ -6,26 +6,38 @@
 var debug = false;
 
 // First run code
-run();
 var intervalID = window.setInterval(run, 2000);
 var lastInboxCount;
 var lastChatMessagesCount;
 var chatNotification;
 var desktopNotification;
+var checkArea;
 
 function run() {
   chrome.extension.sendRequest({type: "getvars"}, function(response) {
-    chatNotification = response.chatNotification;
-	desktopNotification = response.desktopNotification;
+    chatNotification = response.chatNotification == "true" || !response.chatNotification;
+	desktopNotification = response.desktopNotification == "true" || !response.desktopNotification;
+	checkArea = response.checkArea ? response.checkArea : "2";
   });
-  var inboxCount = getInboxCount(0);
+  var inboxCount;
+  switch (checkArea) {
+    case "0":
+      inboxCount = getInboxCount(0);
+	  break;
+	case "1":
+	  inboxCount = getInboxCount(1);
+	  break;
+	case "2":
+	  inboxCount = getInboxCount(0) + getInboxCount(1);
+	  break;
+  }
   var chatMessages = getChatMessages();
-  if(inboxCount != lastInboxCount || (chatNotification == 'true' && chatMessages != lastChatMessagesCount) ) {
-    if(inboxCount != lastInboxCount && inboxCount > 0 && desktopNotification == 'true') {
+  if(inboxCount != lastInboxCount || (chatNotification && chatMessages != lastChatMessagesCount) ) {
+    if(inboxCount != lastInboxCount && inboxCount > 0 && desktopNotification) {
       chrome.extension.sendRequest({type: 'email', inboxCount: inboxCount});
     }
-	if(chatNotification == 'true') {
-	  if(chatMessages != lastChatMessagesCount && chatMessages > 0 && desktopNotification == 'true') {
+	if(chatNotification) {
+	  if(chatMessages != lastChatMessagesCount && chatMessages > 0 && desktopNotification) {
 	    chrome.extension.sendRequest({type: 'chat'});
 	  }
 	  changeFavicon(inboxCount, chatMessages);

@@ -7,7 +7,6 @@
 <html>
   <head>
 	<script>
-	
 		chrome.extension.onRequest.addListener(
 		  function(request, sender, sendResponse) {
 		    //console.log(sender.tab ?
@@ -16,8 +15,9 @@
 		    // Create a simple text notification:
 			if (request.type == 'getvars') {
 			  var response = {};
-			  response.chatNotification = localStorage['chatNotification'];
+			  response.chatNotification = localStorage.chatNotification;
 			  response.desktopNotification = localStorage.desktopNotification;
+			  response.checkArea = localStorage.checkArea;
 			  sendResponse(response);
 			}
 			if (request.type == 'email') {
