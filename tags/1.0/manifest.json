@@ -1,0 +1,28 @@
+{
+  "name": "Gmail Favincon Notifier",
+  "version": "1.0",
+  "description": "A Chrome extension to show Gmail notification with favicon.",
+  "background_page": "background.html",
+  "options_page": "options.html",
+  "page_action" :
+  {
+    "default_icon" : "icon16.png",
+    "default_title" : "Gmail Favicon Notifier"
+  },
+  "permissions" : [
+    "tabs",
+	"notifications"
+  ],
+  "content_scripts": [
+    {
+      "matches": ["https://mail.google.com/*", "http://mail.google.com/*"],
+      "js": ["script.js"]
+    }
+  ],
+  "icons" : {
+    "16" : "icon16.png",
+	"32" : "icon32.png",
+    "48" : "icon48.png",
+    "128" : "icon128.png"
+  }
+}
