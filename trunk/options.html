@@ -24,8 +24,7 @@
         localStorage.chatNotification = chatNotification == 'true' ? true : false;
 		
 		// 0 -> Only Priority Inbox
-		// 1 -> Only Inbox
-		// 2 -> Priority Inbox + Inbox
+		// 1 -> Whole Inbox
 		select = document.getElementById("checkArea");
         var checkArea = select.children[select.selectedIndex].value;
 		localStorage.checkArea = checkArea;
@@ -80,10 +79,6 @@
             child.selected = "true";
             break;
           }
-		  if (child.value == "2" && checkAreaValue == "2") {
-            child.selected = "true";
-            break;
-          }
         }
       }
     </script>
@@ -111,7 +106,6 @@
 		<select id="checkArea">
 		  <option value="0">Priority Inbox</option>
 		  <option value="1">Inbox</option>
-		  <option value="2">Priority Inbox + Inbox</option>
 		</select>
 	  </p>
 	  <p>

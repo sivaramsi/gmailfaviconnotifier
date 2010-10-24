@@ -17,7 +17,7 @@ function run() {
   chrome.extension.sendRequest({type: "getvars"}, function(response) {
     chatNotification = response.chatNotification == "true" || !response.chatNotification;
 	desktopNotification = response.desktopNotification == "true" || !response.desktopNotification;
-	checkArea = response.checkArea ? response.checkArea : "2";
+	checkArea = response.checkArea ? response.checkArea : "0";
   });
   var inboxCount;
   switch (checkArea) {
@@ -26,9 +26,6 @@ function run() {
 	  break;
 	case "1":
 	  inboxCount = getInboxCount(1);
-	  break;
-	case "2":
-	  inboxCount = getInboxCount(0) + getInboxCount(1);
 	  break;
   }
   var chatMessages = getChatMessages();
