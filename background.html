@@ -29,7 +29,7 @@
 			    );
 			    notification.show();
 				var hideTime = parseInt(localStorage.hideTime);
-				if(hideTime == NaN) hideTime = 10;
+				if(!hideTime) hideTime = 10;
 			    setTimeout(function() {
 			      notification.cancel();
 			    }, hideTime * 1000);
@@ -49,7 +49,7 @@
 			    );
 			    chatNotification.show();
 			    var hideTime = parseInt(localStorage.hideTime);
-				if(hideTime == NaN) hideTime = 10;
+				if(!hideTime) hideTime = 10;
 			    setTimeout(function() {
 			      chatNotification.cancel();
 			    }, hideTime * 1000);

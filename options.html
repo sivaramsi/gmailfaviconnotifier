@@ -5,8 +5,13 @@
 	<script type="text/javascript">
       // Saves options to localStorage.
       function save_options() {
-        localStorage.desktopNotification = document.getElementById("desktopNotification").checked;		
-		localStorage.hideTime = document.getElementById("hideTime").value;
+        localStorage.desktopNotification = document.getElementById("desktopNotification").checked;
+		if (parseInt(document.getElementById("hideTime").value)) {
+		  localStorage.hideTime = document.getElementById("hideTime").value;
+		} else {
+		  localStorage.hideTime = "10";
+		  document.getElementById("hideTime").value = "10";
+		}
 		
 		select = document.getElementById("chatNotification");
         var chatNotification = select.children[select.selectedIndex].value;
@@ -30,10 +35,9 @@
 		}
 		
         // Update status to let user know options were saved.
-        var status = document.getElementById("status");
-        status.innerHTML = "Options Saved.";
+        document.getElementById("status").style.display = "";
         setTimeout(function() {
-          status.innerHTML = "";
+          document.getElementById("status").style.display = "none";
         }, 1000);
       }
 
@@ -146,6 +150,15 @@
 	    margin: 30px 0px;
 		padding: 0px;
 	  }
+	  button {
+	    width: 5em;
+		height: 2.5em;
+	  }
+	  #status {
+	    padding: 5px;
+	    margin-left: 10px;
+		background-color: yellow;
+	  }
 	</style>
   </head>
 
@@ -197,7 +210,7 @@
         </p>
 	  </div>
 	  <p>
-        <button onclick="save_options()">Save</button><span id="status"></span>
+        <button onclick="save_options()">Save</button><span id="status" style="display: none;">Options Saved.</span>
 	  </p>
 	</div>
   </body>

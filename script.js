@@ -7,7 +7,7 @@ var debug = false;
 
 // First run code
 var intervalID = window.setInterval(run, 2000);
-var lastInboxCount;
+var lastInboxCount = 0;
 var lastChatMessagesCount;
 var chatNotification;
 var desktopNotification;
@@ -19,7 +19,7 @@ function run() {
 	desktopNotification = response.desktopNotification == "true" || !response.desktopNotification;
 	checkArea = response.checkArea ? response.checkArea : "0";
   });
-  var inboxCount;
+  var inboxCount = 0;
   switch (checkArea) {
     case "0":
       inboxCount = getInboxCount(0);
@@ -30,7 +30,7 @@ function run() {
   }
   var chatMessages = getChatMessages();
   if(inboxCount != lastInboxCount || (chatNotification && chatMessages != lastChatMessagesCount) ) {
-    if(inboxCount != lastInboxCount && inboxCount > 0) {
+    if(inboxCount > lastInboxCount) {
       chrome.extension.sendRequest({type: 'email', inboxCount: inboxCount});
     }
 	if(chatNotification) {
