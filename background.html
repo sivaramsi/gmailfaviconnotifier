@@ -20,7 +20,7 @@
 			  response.checkArea = localStorage.checkArea;
 			  sendResponse(response);
 			}
-			if (request.type == 'email') {
+			else if (request.type == 'email') {
 			  var notification = webkitNotifications.createNotification(
 			    'icon48.png',  // icon url - can be relative
 			    'You have ' + request.inboxCount + ' new mail!',  // notification title
@@ -29,23 +29,31 @@
 			  notification.show();
 			  setTimeout(function() {
 			    notification.cancel();
-			  }, 15000);
+			  }, 10000);
+			  if (localStorage.newMailSoundNotification == "true") {
+			    var newMailAudio = document.getElementById('newMailAudio');
+				newMailAudio.src = localStorage.newMailSound;
+				newMailAudio.play();
+			  }
 			}
 			else if (request.type == 'chat') {
-			   var notification = webkitNotifications.createNotification(
-			    'icon48.png',  // icon url - can be relative
-			    'You have a new Gtalk message!',  // notification title
-			    ''  // notification body text
+			  var chatNotification = webkitNotifications.createNotification(
+				'icon48.png',  // icon url - can be relative
+				'You have a new Gtalk message!',  // notification title
+				''  // notification body text
 			  );
-			  notification.show();
+			  chatNotification.show();
 			  setTimeout(function() {
-			    notification.cancel();
-			  }, 15000);
+			    chatNotification.cancel();
+			  }, 10000);
 			}
 		  }
 		);
 	</script>
   </head>
   <body>
+    <audio id="newMailAudio">
+		<source src="" type="audio/mpeg">
+	</audio>
   </body>
 </html>
