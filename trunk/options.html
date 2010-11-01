@@ -136,45 +136,77 @@
 	  }
 	  
     </script>
+	<style>
+	  h2 {
+	    font-size: 18px;
+	    padding: 0px;
+	    margin: 0px;
+	  }
+	  p {
+	    padding: 0px;
+		margin: 5px 0px 5px 0px;
+	  }
+	  
+	  div.main {
+	    width: 600px;
+		margin: 100px auto;
+		padding: 0px 20px 10px 20px;
+		border: solid 1px #AAAAAA;
+		border-radius: 20px;
+		-webkit-box-shadow: 2px 2px 5px #BBBBBB;
+	  }
+	  div.option {
+	    margin: 30px 0px;
+		padding: 0px;
+	  }
+	</style>
   </head>
 
   <body onload="restore_options()">
-    <div style="width: 500px; margin: 100px auto; padding: 0px 20px; border: solid 1px #AAAAAA; border-radius: 20px; -webkit-box-shadow: 2px 2px 5px #BBBBBB;">
- 	  <h2 style="border-bottom: solid 1px #AAAAAA; text-shadow: 1px 1px 2px #BBBBBB;"><img title="Gmail Favicon Notifier" alt="Gmail Favicon Notifier" src="icon48.png" style="vertical-align: -12px; margin-right: 10px;" />Gmail Favicon Notifier</h2>
-	  <p>
-        Desktop notification:
-        <select id="desktopNotification">
-          <option value="true">Enable</option>
-          <option value="false">Disable</option>
-        </select>
-      </p>
-	  <p>
-	    <input id="newMailSoundNotification" type="checkbox" onchange="changeNewMailSoundNotificationStatus(this)"/> Enable sound notification for new mail:
-	    <br />
-	      <select id="newMailSound" disabled="false" onchange="changeNewMailSound()">
-          <option value="whoosh-19.mp3">Woosh</option>
-          <option value="weird-wind1.mp3">Weird wind</option>
-		  <option value="bubble-drop.mp3">Bubble drop</option>
-		  <option value="bell-small.mp3">Bell small</option>
-		  <option value="whoosh-15.mp3">Woosh 2</option>
-		  <option value="bell-transition.mp3">Bell transition</option>
-        </select>
-		<audio id="newMailSoundPreview" src="" controls="controls" style="vertical-align: -10px;"></audio>
-      </p>
-	  <p>
-        Enable chat notification:
-        <select id="chatNotification">
-          <option value="true">Enable</option>
-          <option value="false">Disable</option>
-        </select>
-      </p>
-	  <p>
-	    Check for new mail in:
-		<select id="checkArea">
-		  <option value="0">Priority Inbox</option>
-		  <option value="1">Inbox</option>
-		</select>
-	  </p>
+    <div class="main">
+ 	  <h1 style="border-bottom: solid 1px #AAAAAA; text-shadow: 1px 1px 2px #BBBBBB;"><img title="Gmail Favicon Notifier" alt="Gmail Favicon Notifier" src="icon48.png" style="vertical-align: -12px; margin-right: 10px;" />Gmail Favicon Notifier</h1>
+	  <div class="option">
+	    <p>
+          Desktop notification:
+          <select id="desktopNotification">
+            <option value="true">Enable</option>
+            <option value="false">Disable</option>
+          </select>
+        </p>
+	  </div>
+	  <div class="option">
+	    <h2>Mail options:</h2>
+	    <p>
+	      Check for new mail in:
+		  <select id="checkArea">
+		    <option value="0">Priority Inbox</option>
+ 		    <option value="1">Inbox</option>
+		  </select>
+	    </p>
+	    <p>
+	      <input id="newMailSoundNotification" type="checkbox" onchange="changeNewMailSoundNotificationStatus(this)"/> Enable sound notification for new mail:
+	      <br />
+	        <select id="newMailSound" disabled="false" onchange="changeNewMailSound()">
+            <option value="whoosh-19.mp3">Woosh</option>
+            <option value="weird-wind1.mp3">Weird wind</option>
+		    <option value="bubble-drop.mp3">Bubble drop</option>
+		    <option value="bell-small.mp3">Bell small</option>
+		    <option value="whoosh-15.mp3">Woosh 2</option>
+		    <option value="bell-transition.mp3">Bell transition</option>
+          </select>
+		  <audio id="newMailSoundPreview" src="" controls="controls" style="vertical-align: -10px;"></audio>
+        </p>
+	  </div>
+	  <div class="option">
+		<h2>Chat options:</h2>
+		<p>
+		  Chat notification:
+          <select id="chatNotification">
+            <option value="true">Enable</option>
+            <option value="false">Disable</option>
+          </select>
+        </p>
+	  </div>
 	  <p>
         <button onclick="save_options()">Save</button><span id="status"></span>
 	  </p>

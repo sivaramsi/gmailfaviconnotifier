@@ -21,15 +21,17 @@
 			  sendResponse(response);
 			}
 			else if (request.type == 'email') {
-			  var notification = webkitNotifications.createNotification(
-			    'icon48.png',  // icon url - can be relative
-			    'You have ' + request.inboxCount + ' new mail!',  // notification title
-			    ''  // notification body text
-			  );
-			  notification.show();
-			  setTimeout(function() {
-			    notification.cancel();
-			  }, 10000);
+			  if(localStorage.desktopNotification == "true" || !localStorage.desktopNotification) {
+			    var notification = webkitNotifications.createNotification(
+			      'icon48.png',  // icon url - can be relative
+			      'You have ' + request.inboxCount + ' new mail!',  // notification title
+			      ''  // notification body text
+			    );
+			    notification.show();
+			    setTimeout(function() {
+			      notification.cancel();
+			    }, 10000);
+			  }
 			  if (localStorage.newMailSoundNotification == "true") {
 			    var newMailAudio = document.getElementById('newMailAudio');
 				newMailAudio.src = localStorage.newMailSound;
@@ -37,15 +39,17 @@
 			  }
 			}
 			else if (request.type == 'chat') {
-			  var chatNotification = webkitNotifications.createNotification(
-				'icon48.png',  // icon url - can be relative
-				'You have a new Gtalk message!',  // notification title
-				''  // notification body text
-			  );
-			  chatNotification.show();
-			  setTimeout(function() {
-			    chatNotification.cancel();
-			  }, 10000);
+			  if(localStorage.desktopNotification == "true" || !localStorage.desktopNotification) {
+			    var chatNotification = webkitNotifications.createNotification(
+				  'icon48.png',  // icon url - can be relative
+				  'You have a new Gtalk message!',  // notification title
+				  ''  // notification body text
+			    );
+			    chatNotification.show();
+			    setTimeout(function() {
+			      chatNotification.cancel();
+			    }, 10000);
+			  }
 			}
 		  }
 		);
