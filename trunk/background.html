@@ -28,9 +28,11 @@
 			      ''  // notification body text
 			    );
 			    notification.show();
+				var hideTime = parseInt(localStorage.hideTime);
+				if(hideTime == NaN) hideTime = 10;
 			    setTimeout(function() {
 			      notification.cancel();
-			    }, 10000);
+			    }, hideTime * 1000);
 			  }
 			  if (localStorage.newMailSoundNotification == "true") {
 			    var newMailAudio = document.getElementById('newMailAudio');
@@ -46,9 +48,11 @@
 				  ''  // notification body text
 			    );
 			    chatNotification.show();
+			    var hideTime = parseInt(localStorage.hideTime);
+				if(hideTime == NaN) hideTime = 10;
 			    setTimeout(function() {
 			      chatNotification.cancel();
-			    }, 10000);
+			    }, hideTime * 1000);
 			  }
 			}
 		  }

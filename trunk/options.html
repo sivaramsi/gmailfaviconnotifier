@@ -5,19 +5,8 @@
 	<script type="text/javascript">
       // Saves options to localStorage.
       function save_options() {
-        var select = document.getElementById("desktopNotification");
-        var desktopNotification = select.children[select.selectedIndex].value;
-		if(desktopNotification == 'true' && window.webkitNotifications.checkPermission() != 0) {
-		  window.webkitNotifications.requestPermission(function() {
-		    if(window.webkitNotifications.checkPermission() == 0) {
-		      localStorage.desktopNotification = true;
-		    } else {
-			  localStorage.desktopNotification = false;
-			}
-		  });
-		} else {
-		  localStorage.desktopNotification = desktopNotification == 'true' ? true : false;
-		}
+        localStorage.desktopNotification = document.getElementById("desktopNotification").checked;		
+		localStorage.hideTime = document.getElementById("hideTime").value;
 		
 		select = document.getElementById("chatNotification");
         var chatNotification = select.children[select.selectedIndex].value;
@@ -51,18 +40,9 @@
       // Restores select box state to saved value from localStorage.
       function restore_options() {
         var desktopNotificationValue = window.webkitNotifications.checkPermission() == 0 && (localStorage.desktopNotification == "true" || !localStorage.desktopNotification);
-        var select = document.getElementById("desktopNotification");
-        for (var i = 0; i < select.children.length; i++) {
-          var child = select.children[i];
-          if (child.value == "true" && desktopNotificationValue) {
-            child.selected = "true";
-            break;
-          }
-		  if (child.value == "false" && !desktopNotificationValue) {
-            child.selected = "true";
-            break;
-          }
-        }
+        document.getElementById("desktopNotification").checked = desktopNotificationValue;
+		document.getElementById("hideTime").disabled = !desktopNotificationValue;
+		document.getElementById("hideTime").value = localStorage.hideTime ? localStorage.hideTime : "10";
 		
 		var chatNotificationValue = localStorage.chatNotification == "true" || !localStorage.chatNotification;
         select = document.getElementById("chatNotification");
@@ -137,6 +117,12 @@
 	  
     </script>
 	<style>
+	  h1 {
+	    padding: 0px;
+		margin: 0px;
+	    border-bottom: solid 1px #AAAAAA;
+		text-shadow: 1px 1px 2px #BBBBBB;
+	  }
 	  h2 {
 	    font-size: 18px;
 	    padding: 0px;
@@ -145,12 +131,13 @@
 	  p {
 	    padding: 0px;
 		margin: 5px 0px 5px 0px;
+		line-height: 1.7em;
 	  }
 	  
 	  div.main {
 	    width: 600px;
 		margin: 100px auto;
-		padding: 0px 20px 10px 20px;
+		padding: 10px 20px;
 		border: solid 1px #AAAAAA;
 		border-radius: 20px;
 		-webkit-box-shadow: 2px 2px 5px #BBBBBB;
@@ -164,15 +151,17 @@
 
   <body onload="restore_options()">
     <div class="main">
- 	  <h1 style="border-bottom: solid 1px #AAAAAA; text-shadow: 1px 1px 2px #BBBBBB;"><img title="Gmail Favicon Notifier" alt="Gmail Favicon Notifier" src="icon48.png" style="vertical-align: -12px; margin-right: 10px;" />Gmail Favicon Notifier</h1>
+ 	  <h1>
+	    <img title="Gmail Favicon Notifier" alt="Gmail Favicon Notifier" src="icon48.png" style="vertical-align: -12px; margin-right: 10px;" />
+		Gmail Favicon Notifier
+	  </h1>
 	  <div class="option">
+	    <h2>DesktopNotification</h2>
 	    <p>
-          Desktop notification:
-          <select id="desktopNotification">
-            <option value="true">Enable</option>
-            <option value="false">Disable</option>
-          </select>
-        </p>
+          <input id="desktopNotification" type="checkbox" onChange="document.getElementById('hideTime').disabled = !this.checked;" /> Enable desktop notification:
+		  <br />
+		  Hide notification after <input id="hideTime" type="text" style="width:2em; text-align:center;" /> seconds.
+		</p>
 	  </div>
 	  <div class="option">
 	    <h2>Mail options:</h2>
