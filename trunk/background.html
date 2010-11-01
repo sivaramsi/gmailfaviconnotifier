@@ -34,9 +34,9 @@
 			      notification.cancel();
 			    }, hideTime * 1000);
 			  }
-			  if (localStorage.newMailSoundNotification == "true") {
+			  if (localStorage.newMailSoundNotification == "true" || ! localStorage.newMailSoundNotification) {
 			    var newMailAudio = document.getElementById('newMailAudio');
-				newMailAudio.src = localStorage.newMailSound;
+				newMailAudio.src = localStorage.newMailSound ? localStorage.newMailSound : "bell-transition.mp3";
 				newMailAudio.play();
 			  }
 			}
