@@ -30,11 +30,11 @@ function run() {
   }
   var chatMessages = getChatMessages();
   if(inboxCount != lastInboxCount || (chatNotification && chatMessages != lastChatMessagesCount) ) {
-    if(inboxCount != lastInboxCount && inboxCount > 0 && desktopNotification) {
+    if(inboxCount != lastInboxCount && inboxCount > 0) {
       chrome.extension.sendRequest({type: 'email', inboxCount: inboxCount});
     }
 	if(chatNotification) {
-	  if(chatMessages != lastChatMessagesCount && chatMessages > 0 && desktopNotification) {
+	  if(chatMessages != lastChatMessagesCount && chatMessages > 0) {
 	    chrome.extension.sendRequest({type: 'chat'});
 	  }
 	  changeFavicon(inboxCount, chatMessages);
