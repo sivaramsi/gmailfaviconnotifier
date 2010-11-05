@@ -1,7 +1,7 @@
 {
-  "name": "Gmail Favincon Notifier",
-  "version": "1.1.1",
-  "description": "A Chrome extension to show Gmail notification with favicon.",
+  "name": "Gmail Favicon Notifier",
+  "version": "1.1.3",
+  "description": "A Chrome extension to show Gmail notification through favicon, sound and desktop notifications.",
   "background_page": "background.html",
   "options_page": "options.html",
   "page_action" :
